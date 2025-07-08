@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f9fb;
+  color: #333;
+}
+
+header {
+  background-color: #003366;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.kpi-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.kpi-card {
+  background-color: #e6f0ff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex: 1 1 200px;
+}
+
+.kpi-card span {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+}
+
+.kpi-card.green {
+  background-color: #d1f7d6;
+}
+.kpi-card.red {
+  background-color: #ffd6d6;
+}
+.kpi-card.orange {
+  background-color: #fff1cc;
+}
+
+.chart-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.chart {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex: 1 1 500px;
+}
+
+.chart.small {
+  flex: 1 1 300px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #003366;
+  color: white;
+  margin-top: 2rem;
+}

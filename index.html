@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Booking Dashboard</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hotel Booking Dashboard</h1>
+    </header>
+
+    <div class="kpi-container">
+      <div class="kpi-card">4333<br /><span>Total Bookings</span></div>
+      <div class="kpi-card green">4M<br /><span>Confirmed Revenue</span></div>
+      <div class="kpi-card red">1.0%<br /><span>Cancellation Rate</span></div>
+      <div class="kpi-card orange">0.5%<br /><span>NoShow Rate</span></div>
+    </div>
+
+    <div class="chart-section">
+      <div class="chart" id="monthly-bookings">
+        <h3>Total Bookings by Month</h3>
+        <canvas id="monthChart"></canvas>
+      </div>
+      <div class="chart small" id="price-type">
+        <h3>Total Bookings by Price Type</h3>
+        <canvas id="priceChart"></canvas>
+      </div>
+      <div class="chart small" id="room-type">
+        <h3>Total Bookings by Room Type</h3>
+        <canvas id="roomChart"></canvas>
+      </div>
+      <div class="chart small" id="channel-type">
+        <h3>Total Bookings by Booking Channel</h3>
+        <canvas id="channelChart"></canvas>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Hotel Analytics Dashboard</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
