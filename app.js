@@ -1,50 +1,35 @@
-function addTotalBookings() {
-  fetch("/total_bookinngs.csv")
+function addingKpiValueFromCsv(fileName, kpiNumber, innerHtmlValue) {
+  fetch(`/${fileName}.csv`)
     .then((response) => response.text())
     .then((csv) => {
       const rows = csv.split("\n").map((row) => row.split(","));
-      document.querySelectorAll(
-        ".kpi-card"
-      )[0].innerHTML = `${rows[1][0]}<br /><span class="kpi-cart-type">Total Bookings</span>`;
-    });
-}
-function addTotalConfirmedRevenue() {
-  fetch("/confirmed_revenue.csv")
-    .then((response) => response.text())
-    .then((csv) => {
-      const rows = csv.split("\n").map((row) => row.split(","));
-      document.querySelectorAll(
-        ".kpi-card"
-      )[1].innerHTML = `${rows[1][0]}<br /><span class="kpi-cart-type">Confirmed Revenue</span>`;
+      document.querySelectorAll(".kpi-card")[
+        kpiNumber
+      ].innerHTML = `${rows[1][0]}${innerHtmlValue}`;
     });
 }
 
-function addCancelationRate() {
-  fetch("/cancelation_rate.csv")
-    .then((response) => response.text())
-    .then((csv) => {
-      const rows = csv.split("\n").map((row) => row.split(","));
-      document.querySelectorAll(
-        ".kpi-card"
-      )[2].innerHTML = `${rows[1][0]}<br /><span class="kpi-cart-type">Cancellation Rate</span>`;
-    });
-}
+addingKpiValueFromCsv(
+  "total_bookinngs",
+  0,
+  `<br /><span class="kpi-cart-type">Total Bookings</span>`
+);
+addingKpiValueFromCsv(
+  "confirmed_revenue",
+  1,
+  `<br /><span class="kpi-cart-type">Confirmed Revenue</span>`
+);
+addingKpiValueFromCsv(
+  "cancelation_rate",
+  2,
+  `<br /><span class="kpi-cart-type">Cancellation Rate</span>`
+);
+addingKpiValueFromCsv(
+  "no_show_rate",
+  3,
+  `<br /><span class="kpi-cart-type">NoShow Rate</span>`
+);
 
-function addNoShowRate() {
-  fetch("/no_show_rate.csv")
-    .then((response) => response.text())
-    .then((csv) => {
-      const rows = csv.split("\n").map((row) => row.split(","));
-      document.querySelectorAll(
-        ".kpi-card"
-      )[3].innerHTML = `${rows[1][0]}<br /><span class="kpi-cart-type">NoShow Rate</span>`;
-    });
-}
-
-addTotalBookings();
-addTotalConfirmedRevenue();
-addCancelationRate();
-addNoShowRate();
 // Monthly Bookings Chart
 new Chart(document.getElementById("monthChart"), {
   type: "line",
