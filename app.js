@@ -31,35 +31,70 @@ addingKpiValueFromCsv(
 );
 
 // Monthly Bookings Chart
-new Chart(document.getElementById("monthChart"), {
-  type: "line",
-  data: {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        label: "Bookings",
-        data: [283, 288, 321, 343, 363, 434, 449, 432, 383, 352, 321, 364],
-        borderColor: "#007bff",
-        fill: true,
-        tension: 0.4,
-        backgroundColor: "rgba(0,123,255,0.1)",
-      },
-    ],
-  },
-});
+async function changeToMonths() {
+  const res = await fetch("./Total Bookings by Month.csv");
+  const csvText = await res.text();
+
+  const result = Papa.parse(csvText, {
+    header: true,
+    skipEmptyLines: true,
+  });
+
+  const data = result.data;
+
+  const monthlyTotals = {};
+
+  data.forEach((row) => {
+    const month = row.Month.trim();
+    const bookings = parseInt(row["Total Bookings"], 10);
+    if (!monthlyTotals[month]) monthlyTotals[month] = 0;
+    monthlyTotals[month] += bookings;
+  });
+
+  return monthlyTotals;
+}
+
+async function addTotalBookingsByMonth() {
+  const monthlyTotals = await changeToMonths();
+
+  const monthLabels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const dataValues = monthLabels.map((month) => monthlyTotals[month]);
+
+  new Chart(document.getElementById("monthChart"), {
+    type: "line",
+    data: {
+      labels: monthLabels,
+      datasets: [
+        {
+          label: "Bookings",
+          data: dataValues,
+          borderColor: "#007bff",
+          fill: true,
+          tension: 0.4,
+          backgroundColor: "rgba(0,123,255,0.1)",
+        },
+      ],
+    },
+  });
+}
+
+addTotalBookingsByMonth();
+
+addTotalBookingsByMonth();
 
 // Price Type Pie
 
@@ -80,7 +115,6 @@ function addTotalBookingsByPriceType() {
           ],
         },
       });
-      console.log(rows);
     });
 }
 addTotalBookingsByPriceType();
