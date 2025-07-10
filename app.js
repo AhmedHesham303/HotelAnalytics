@@ -91,16 +91,25 @@ new Chart(document.getElementById("roomChart"), {
 });
 
 // Booking Channel Bar
-new Chart(document.getElementById("channelChart"), {
-  type: "bar",
-  data: {
-    labels: ["Online", "Group", "Direct"],
-    datasets: [
-      {
-        label: "Total Bookings",
-        data: [2500, 1200, 633],
-        backgroundColor: "#00bfff",
-      },
-    ],
-  },
-});
+function addTotalBookingsByChannel() {
+  fetch("./Total Bookings by Booking Channel.csv")
+    .then((response) => response.text())
+    .then((csv) => {
+      const rows = csv.split("\n").map((row) => row.split(","));
+      new Chart(document.getElementById("channelChart"), {
+        type: "bar",
+        data: {
+          labels: [rows[1][0], rows[2][0], rows[3][0]],
+          datasets: [
+            {
+              label: "Total Bookings",
+              data: [rows[1][1], rows[2][1], rows[3][1]],
+              backgroundColor: "#00bfff",
+            },
+          ],
+        },
+      });
+      console.log(rows);
+    });
+}
+addTotalBookingsByChannel();
