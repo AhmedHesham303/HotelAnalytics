@@ -76,19 +76,29 @@ new Chart(document.getElementById("priceChart"), {
 });
 
 // Room Type Bar
-new Chart(document.getElementById("roomChart"), {
-  type: "bar",
-  data: {
-    labels: ["Deluxe", "Superior", "Standard", "Suite"],
-    datasets: [
-      {
-        label: "Total Bookings",
-        data: [1800, 1600, 700, 400],
-        backgroundColor: "#3399ff",
-      },
-    ],
-  },
-});
+
+function addTotalBookingsByType() {
+  fetch("./Total Bookings by Room Type.csv")
+    .then((response) => response.text())
+    .then((csv) => {
+      const rows = csv.split("\n").map((row) => row.split(","));
+      new Chart(document.getElementById("roomChart"), {
+        type: "bar",
+        data: {
+          labels: [rows[1][0], rows[2][0], rows[3][0], rows[4][0]],
+          datasets: [
+            {
+              label: "Total Bookings",
+              data: [rows[1][1], rows[2][1], rows[3][1], rows[4][1]],
+              backgroundColor: "#3399ff",
+            },
+          ],
+        },
+      });
+      console.log(rows);
+    });
+}
+addTotalBookingsByType();
 
 // Booking Channel Bar
 function addTotalBookingsByChannel() {
@@ -109,7 +119,6 @@ function addTotalBookingsByChannel() {
           ],
         },
       });
-      console.log(rows);
     });
 }
 addTotalBookingsByChannel();
