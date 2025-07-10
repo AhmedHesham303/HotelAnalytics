@@ -62,18 +62,28 @@ new Chart(document.getElementById("monthChart"), {
 });
 
 // Price Type Pie
-new Chart(document.getElementById("priceChart"), {
-  type: "pie",
-  data: {
-    labels: ["Full Price", "Discounted"],
-    datasets: [
-      {
-        data: [3000, 2000],
-        backgroundColor: ["#004085", "#66b3ff"],
-      },
-    ],
-  },
-});
+
+function addTotalBookingsByPriceType() {
+  fetch("./Total Bookings by Price Type.csv")
+    .then((response) => response.text())
+    .then((csv) => {
+      const rows = csv.split("\n").map((row) => row.split(","));
+      new Chart(document.getElementById("priceChart"), {
+        type: "pie",
+        data: {
+          labels: [rows[1][0], rows[2][0]],
+          datasets: [
+            {
+              data: [rows[1][1], rows[2][1]],
+              backgroundColor: ["#004085", "#66b3ff"],
+            },
+          ],
+        },
+      });
+      console.log(rows);
+    });
+}
+addTotalBookingsByPriceType();
 
 // Room Type Bar
 
@@ -95,7 +105,6 @@ function addTotalBookingsByType() {
           ],
         },
       });
-      console.log(rows);
     });
 }
 addTotalBookingsByType();
